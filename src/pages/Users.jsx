@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 import { api } from "../../API/api";
-import { ListView } from "../components/ListView";
+import { UserList } from "../components/UserList";
 
 export const Users = () => {
   const [users, setUsers] = React.useState([]);
@@ -15,5 +15,5 @@ export const Users = () => {
     getUsers();
   }, []);
 
-  return <ListView users={users} />;
+  return <UserList users={users} />;
 };

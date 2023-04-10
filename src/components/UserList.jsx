@@ -11,7 +11,7 @@ import * as React from "react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { LoaderSpinner } from "./LoaderSpinner";
 
-export const ListView = ({ users }) => {
+export const UserList = ({ users }) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
