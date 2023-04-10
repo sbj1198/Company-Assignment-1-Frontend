@@ -7,7 +7,10 @@ import {
   Input,
   Textarea,
   Box,
+  Button,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { api } from "../../API/api";
 
 export const UserForm = () => {
   const [userDetails, setUserDetails] = useState({
@@ -25,8 +28,20 @@ export const UserForm = () => {
     });
   };
 
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
+  const formSubmitHandler = () => {
+    axios
+      .post(`${api}/users`, userDetails)
+      .then((res) => {
+        setUserDetails({
+          id: "",
+          name: "",
+          email: "",
+          bio: "",
+        });
+      })
+      .catch((err) => {
+        console.log("Error: ", err.response.data.errors[0].message);
+      });
   };
 
   return (
@@ -36,7 +51,7 @@ export const UserForm = () => {
       p="20px 30px"
       mb="20px"
     >
-      <FormControl isRequired onSubmit={formSubmitHandler}>
+      <FormControl isRequired>
         <FormLabel>Id</FormLabel>
         <Input
           name="id"
@@ -69,18 +84,21 @@ export const UserForm = () => {
         />
         <FormLabel>Bio</FormLabel>
         <Textarea
+          name="bio"
           placeholder="Bio"
           mb="20px"
           onChange={handleFormInput}
           value={userDetails.bio}
         />
-        <Input
-          type="submit"
-          value="Submit"
+        <Button
+          onClick={formSubmitHandler}
           bgColor="#805AD5"
+          w="100%"
           color="white"
           _hover={{ bgColor: "#6B46C1", cursor: "pointer" }}
-        />
+        >
+          Submit
+        </Button>
       </FormControl>
     </Box>
   );
